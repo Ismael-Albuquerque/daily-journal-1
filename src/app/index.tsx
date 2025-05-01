@@ -11,13 +11,13 @@ import { Link, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import UserRepository from "../database/UserRepository";
 import { Ionicons } from "@expo/vector-icons";
-import { useAuthStore } from "../store/useAuthStore"; // <-- importe a store
+import { useAuthStore } from "../store/useAuthStore";
 
 const userRepository = new UserRepository();
 
 const LoginScreen = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser); // <-- use a função da store
+  const setUser = useAuthStore((state) => state.setUser);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

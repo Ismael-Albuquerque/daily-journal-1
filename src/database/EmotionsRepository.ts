@@ -1,13 +1,5 @@
 import db from "./SQLiteDataBase";
-import Database from "./SQLiteDataBase";
-
-export type Emotions = {
-  id?: number;
-  user_id: number;
-  data: string;
-  emocao: string;
-  descricao: string;
-};
+import { Emotions } from "../types/Emotions";
 
 export default class EmotionsRepository {
   constructor() {
