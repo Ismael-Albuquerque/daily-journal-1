@@ -50,10 +50,10 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 3:
 
 - Telas de Login e Cadastro
-  - [] Criar telas de Login e Cadastro;
-  - [] Validar e salvar novo usuário;
-  - [] Implementar login com verificação de email e senha;
-  - [] Salvar usuário logado no Zustand;
+  - [DONE] Criar telas de Login e Cadastro;
+  - [DONE] Validar e salvar novo usuário;
+  - [DONE] Implementar login com verificação de email e senha;
+  - [DONE] Salvar usuário logado no Zustand;
 
 ### Semana 4:
 
