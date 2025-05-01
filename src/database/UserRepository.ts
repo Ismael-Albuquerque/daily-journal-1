@@ -1,12 +1,5 @@
 import db from "./SQLiteDataBase";
-import Database from "./SQLiteDataBase";
-
-export type User = {
-  id?: number;
-  nome: string;
-  email: string;
-  password: string;
-};
+import { User } from "../types/User";
 
 export default class UserRepository {
   constructor() {
