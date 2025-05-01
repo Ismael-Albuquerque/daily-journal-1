@@ -10,7 +10,7 @@ export type User = {
 
 export default class UserRepository {
   constructor() {
-    this.up;
+    this.up();
   }
 
   public async up() {
@@ -33,5 +33,19 @@ export default class UserRepository {
 
   public async all() {
     const result = await db.getAllAsync<User>("SELECT * FROM user;");
+    return result;
   }
+
+  public async findByEmail(email: string) {
+    const result = await db.getFirstAsync<User>(
+      "SELECT * FROM user WHERE email = ?;",
+      [email]
+    );
+    return result;
+  }
+
+  /*public async debugDatabase() {
+    const users = await this.all();
+    console.log("Usuários no banco:", users);
+  }*/
 }
