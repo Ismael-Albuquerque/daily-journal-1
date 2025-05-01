@@ -42,10 +42,10 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 2:
 
 - Banco de dados e Zustand
-  - [] Criar tabelas do db;
-  - [] testar inserção e leitura com SQLite;
-  - [] Criar store do Zustand;
-  - [] Testar persistencia temporária;
+  - [DONE] Criar tabelas do db;
+  - [DONE] testar inserção e leitura com SQLite;
+  - [DONE] Criar store do Zustand;
+  - [DONE] Testar persistencia temporária;
 
 ### Semana 3:
 

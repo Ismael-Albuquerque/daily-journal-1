@@ -11,7 +11,7 @@ export type Emotions = {
 
 export default class EmotionsRepository {
   constructor() {
-    this.up;
+    this.up();
   }
 
   public async up() {
