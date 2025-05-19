@@ -13,21 +13,26 @@ import UserRepository from "../database/UserRepository";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthStore } from "../store/useAuthStore";
 
+
 const userRepository = new UserRepository();
+
 
 const LoginScreen = () => {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
+
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);
+
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -35,21 +40,26 @@ const LoginScreen = () => {
       return;
     }
 
+
     try {
       const user = await userRepository.findByEmail(email);
+
 
       if (!user) {
         Alert.alert("Erro", "Usuário não encontrado.");
         return;
       }
 
+
       if (user.password !== password) {
         Alert.alert("Erro", "Senha incorreta.");
         return;
       }
 
+
       // Se o usuário for encontrado e a senha estiver correta, armazene o usuário na store
       setUser(user);
+
 
       Alert.alert("Sucesso", "Login realizado com sucesso!");
       router.replace("/home");
@@ -59,15 +69,17 @@ const LoginScreen = () => {
     }
   };
 
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require("../assets/Logotipo_journal.png")}
+          source={require("../../assets/Logotipo_journal.png")}
           style={styles.logo}
           resizeMode="contain"
         />
       </View>
+
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
@@ -80,6 +92,7 @@ const LoginScreen = () => {
             onChangeText={setEmail}
           />
         </View>
+
 
         <Text style={[styles.label, { marginTop: 20 }]}>Senha</Text>
         <View style={styles.inputWrapper}>
@@ -104,9 +117,11 @@ const LoginScreen = () => {
         </View>
       </View>
 
+
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>LOGIN</Text>
       </TouchableOpacity>
+
 
       <Link href="/cadastro" asChild>
         <TouchableOpacity style={styles.registerButton}>
@@ -116,6 +131,7 @@ const LoginScreen = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -192,4 +208,10 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default LoginScreen;
+
+
+
+
+

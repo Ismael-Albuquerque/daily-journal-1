@@ -13,6 +13,7 @@ import UserRepository from "../database/UserRepository";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthStore } from "../store/useAuthStore";
 
+
 const CadastroScreen = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -22,14 +23,17 @@ const CadastroScreen = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
+
   const router = useRouter();
   const userRepository = new UserRepository();
-  const setUser = useAuthStore((state) => state.setUser); //Acessa o método da store
+  const setUser = useAuthStore((state) => state.setUser);
+
 
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);
+
 
   const handleRegister = async () => {
     if (!nome.trim() || !email.trim() || !password || !confirmPassword) {
@@ -37,10 +41,12 @@ const CadastroScreen = () => {
       return;
     }
 
+
     if (password !== confirmPassword) {
       Alert.alert("Erro", "As senhas não coincidem.");
       return;
     }
+
 
     try {
       const existingUser = await userRepository.findByEmail(email.trim());
@@ -49,11 +55,13 @@ const CadastroScreen = () => {
         return;
       }
 
+
       const userId = await userRepository.create({
         nome: nome.trim(),
         email: email.trim(),
         password,
       });
+
 
       const newUser = {
         id: userId,
@@ -62,27 +70,32 @@ const CadastroScreen = () => {
         password,
       };
 
-      setUser(newUser); // Salva o usuário na store
+
+      setUser(newUser);
+
 
       Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
-      router.replace("/home"); // Redireciona após login automático
+      router.replace("/"); // Redireciona para a tela inicial (index)
     } catch (error) {
       console.error(error);
       Alert.alert("Erro", "Erro ao cadastrar usuário.");
     }
   };
 
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require("../assets/Logotipo_journal.png")}
+          source={require("../../assets/Logotipo_journal.png")}
           style={styles.logo}
           resizeMode="contain"
         />
       </View>
 
+
       <Text style={styles.title}>VAMOS PERSONALIZAR SUA EXPERIÊNCIA!</Text>
+
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Nome completo</Text>
@@ -96,6 +109,7 @@ const CadastroScreen = () => {
           />
         </View>
 
+
         <Text style={[styles.label, { marginTop: 10 }]}>Email</Text>
         <View style={styles.inputWrapper}>
           <TextInput
@@ -108,6 +122,7 @@ const CadastroScreen = () => {
             autoCapitalize="none"
           />
         </View>
+
 
         <Text style={[styles.label, { marginTop: 10 }]}>Senha</Text>
         <View style={styles.inputWrapper}>
@@ -130,6 +145,7 @@ const CadastroScreen = () => {
             />
           </TouchableOpacity>
         </View>
+
 
         <Text style={[styles.label, { marginTop: 10 }]}>Confirmar Senha</Text>
         <View style={styles.inputWrapper}>
@@ -154,19 +170,19 @@ const CadastroScreen = () => {
         </View>
       </View>
 
+
       <TouchableOpacity style={styles.createButton} onPress={handleRegister}>
         <Text style={styles.createButtonText}>CRIAR</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.cancelButton}
-        onPress={() => router.push("/")}
-      >
+
+      <TouchableOpacity style={styles.cancelButton} onPress={() => router.push("/")}>
         <Text style={styles.cancelButtonText}>CANCELAR</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -251,4 +267,10 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default CadastroScreen;
+
+
+
+
+
