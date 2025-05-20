@@ -51,6 +51,7 @@ Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudan
 
 - Link para o protótipo de telas: https://www.figma.com/design/6wzTaiYh1DryhVoMwTHkzG/Daily-Journal
 - Link para a modelagem do banco de dados: https://drive.google.com/file/d/1sdGYthrQZ5u8cJKbDjT9uybeSIHJOrpZ/view?usp=sharing
+- Link para o video de demonstração: https://youtube.com/shorts/Kh94_eTOd_8
 
 ## Planejamento de sprints:
 
