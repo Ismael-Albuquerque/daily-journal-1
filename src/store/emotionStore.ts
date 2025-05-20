@@ -1,17 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type Emotion = {
-  id?: number;
-  userId: number;
-  date: string;
-  emotion: string;
-  description: string;
-};
+import { Emotions } from "../types/Emotions";
 
 type EmotionStore = {
-  emotions: Emotion[];
-  addEmotion: (entry: Emotion) => void;
+  emotions: Emotions[]; 
+  addEmotion: (entry: Emotions) => void;
   clearEmotions: () => void;
 };
 
@@ -26,7 +19,7 @@ export const useEmotionStore = create(
       clearEmotions: () => set({ emotions: [] }),
     }),
     {
-      name: "emotion-storage", // chave no AsyncStorage
+      name: "emotion-storage", 
     }
   )
 );
