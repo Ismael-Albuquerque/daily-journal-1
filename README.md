@@ -23,6 +23,30 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 - Listar entradas em ordem cronológica; (PRIORITÁRIA)
 - Apresentar as estatísticas das entradas realizadas; (TRABALHOS FUTUROS)
 
+## Atualizações desde o último checkpoint
+
+### Recursos aplicados dos módulos anteriores
+
+- Zustand para gerenciamento de estado global:
+Criei um hook chamado useAuthStore para gerenciar o estado de autenticação do usuário de forma global, permitindo acesso às informações do usuário em diferentes partes da aplicação sem precisar passar props. Também uso Zustand com persistência local (emotionStore) para armazenar as entradas emocionais.
+
+- SQLite com Expo:
+Utilizei SQLite para persistência local dos dados de usuários e emoções. Criei a classe userRepository e EmotionsRepository usando o padrão repository para centralizar todas as operações de leitura e escrita no banco.
+
+- Expo Router para navegação:
+Implementei o roteamento avançado com Expo Router, organizando as rotas em arquivos dentro da pasta app, e utilizando router.push() e router.replace() para navegar entre telas.
+
+### Boas práticas para a criação de componentes reutilizáveis
+
+- Isolamento de componentes reutilizáveis:
+Criei os componentes personalizados EmotionCard (para exibir entradas emocionais recentes) e WeekDaySelector (para escolher dias da semana), ambos armazenados na pasta components/. Esses componentes são reutilizados em diferentes telas.
+
+- Parametrização via props:
+Os componentes são parametrizáveis. Por exemplo, WeekDaySelector recebe dates, selectedDate e onSelectDate, o que permite total controle da lógica na tela pai sem acoplamento.
+
+- Componentes que disparam eventos para o pai:
+Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudanças por meio de funções passadas via props (onSelectDate, onSelectEmotion).
+
 ### Observações:
 
 - Link para o protótipo de telas: https://www.figma.com/design/6wzTaiYh1DryhVoMwTHkzG/Daily-Journal
@@ -58,16 +82,18 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 4:
 
 - Tela Home e Navegação
-  - [] Criar tela Home;
-  - [] Implementar Logout;
-  - [] Criar navegação para outras telas;
+  - [DONE] Criar tela Home;
+  - [DONE] Implementar Logout;
+  - [DONE] Criar navegação para outras telas;
 
 ### Semana 5:
 
-- Tela Nova Entrada 1
-  - [] Criar formulário de nova entrada;
-  - [] Integrar Zustand para salvar rascunho;
-  - [] Validar dados e salvar no banco;
+- Tela Nova Entrada 1 + criação de componentes
+  - [DONE] Criação de componentes reutilizáveis
+  - [DONE] Criar tela de nova entrada;
+  - [DONE] Integrar Zustand para salvar rascunho;
+  - [DONE] Validar dados e salvar no banco;
+  - [DONE] Implementar Cancelar;
 
 ### Semana 6:
 

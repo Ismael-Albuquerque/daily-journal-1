@@ -9,119 +9,61 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { addDays, format, startOfWeek } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { LocaleConfig } from "react-native-calendars";
-
+import { Ionicons } from "@expo/vector-icons";
 
 import EmotionsRepository from "../database/EmotionsRepository";
-import { useAuthStore } from "../store/useAuthStore";
 import { Emotions } from "../types/Emotions";
+import { useAuthStore } from "../store/useAuthStore";
 
-
-// Configuração de idioma para calendário
-LocaleConfig.locales["pt"] = {
-  monthNames: [
-    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
-  ],
-  monthNamesShort: [
-    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
-    "Jul", "Ago", "Set", "Out", "Nov", "Dez",
-  ],
-  dayNames: [
-    "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado",
-  ],
-  dayNamesShort: ["D", "S", "T", "Q", "Q", "S", "S"],
-  today: "Hoje",
-};
-LocaleConfig.defaultLocale = "pt";
-
+import EmotionCard from "../components/EmotionCard";
+import WeekDaySelector from "../components/WeekDaySelector";
 
 const HomeScreen = () => {
   const router = useRouter();
   const today = new Date();
 
-
-  const { user, logout } = useAuthStore();
-  const userId = user?.id;
-
-
   const [selectedDate, setSelectedDate] = useState(format(today, "yyyy-MM-dd"));
   const [entries, setEntries] = useState<Emotions[]>([]);
 
-
+  const { user, logout } = useAuthStore();
   const emotionsRepository = new EmotionsRepository();
-
-
-  useEffect(() => {
-    const fetchEntries = async () => {
-      if (!userId) return;
-
-
-      const allEntries = await emotionsRepository.all();
-      const filtered = allEntries
-        .filter((entry) => entry.user_id === userId)
-        .slice(-3)
-        .reverse();
-      setEntries(filtered);
-    };
-
-
-    fetchEntries();
-  }, [userId]);
-
 
   const weekStart = startOfWeek(today, { weekStartsOn: 0 });
   const weekDates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
+  useEffect(() => {
+    const fetchEntries = async () => {
+      if (!user) return;
+      const allEntries = await emotionsRepository.all();
+      const userEntries = allEntries.filter((e) => e.user_id === user.id);
+      const lastThree = userEntries.slice(-3).reverse();
+      setEntries(lastThree);
+    };
+
+    fetchEntries();
+  }, [user]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.greeting}>OLÁ, {user?.nome.toUpperCase() || "USUÁRIO"}!</Text>
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={() => {
-            logout();
-            router.replace("/");
-          }}
-        >
-          <Text style={styles.logoutText}>SAIR</Text>
-        </TouchableOpacity>
-      </View>
+     <View style={styles.header}>
+  <Text style={styles.greeting}>OLÁ, {user?.nome?.toUpperCase() || "USUÁRIO"}!</Text>
+  <TouchableOpacity
+    onPress={() => {
+      logout();
+      router.replace("/");
+    }}
+  >
+    <Ionicons name="log-out-outline" size={30} color="#8896E1" />
+  </TouchableOpacity>
+</View>
 
-
-      <View style={styles.weekContainer}>
-        {weekDates.map((date, index) => {
-          const dateStr = format(date, "yyyy-MM-dd");
-          const isSelected = selectedDate === dateStr;
-
-
-          return (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.dayContainer,
-                isSelected && styles.selectedDayContainer,
-              ]}
-              onPress={() => setSelectedDate(dateStr)}
-            >
-              <Text style={styles.dayLabel}>
-                {format(date, "EEEEE", { locale: ptBR })}
-              </Text>
-              <Text
-                style={[styles.dayNumber, isSelected && styles.selectedDayText]}
-              >
-                {format(date, "d")}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-
+      <WeekDaySelector
+        dates={weekDates}
+        selectedDate={selectedDate}
+        onSelectDate={setSelectedDate}
+      />
 
       <Text style={styles.subtitle}>COMO VOCÊ ESTÁ SE SENTINDO HOJE?</Text>
-
 
       <TouchableOpacity
         style={styles.newEntryButton}
@@ -130,9 +72,7 @@ const HomeScreen = () => {
         <Text style={styles.newEntryButtonText}>NOVA ENTRADA</Text>
       </TouchableOpacity>
 
-
       <Text style={styles.historyTitle}>HISTÓRICO RECENTE</Text>
-
 
       {entries.length === 0 ? (
         <Text style={{ color: "#9DB3C6", marginBottom: 10 }}>
@@ -140,18 +80,17 @@ const HomeScreen = () => {
         </Text>
       ) : (
         entries.map((entry) => (
-          <View key={entry.id} style={styles.historyBox}>
-            <Text style={{ fontWeight: "bold" }}>{entry.emocao}</Text>
-            <Text>{entry.descricao}</Text>
-          </View>
+          <EmotionCard
+            key={entry.id}
+            emotion={entry.emocao}
+            description={entry.descricao}
+          />
         ))
       )}
-
 
       <TouchableOpacity onPress={() => router.push("/historico")}>
         <Text style={styles.seeMore}>VER MAIS</Text>
       </TouchableOpacity>
-
 
       <Image
         source={require("../../assets/Logotipo_journal.png")}
@@ -162,7 +101,6 @@ const HomeScreen = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -172,64 +110,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    width: "100%",
-    marginBottom: 30,
-    marginTop: 50,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+  width: "100%",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: 20,
+  marginTop: 40,
+},
   greeting: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#8896E1",
+    alignSelf: "flex-start",
+    marginBottom: 20,
   },
-  logoutButton: {
-    backgroundColor: "#B49EFE",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    shadowColor: "#B49EFE",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
-  },
-  logoutText: {
-    color: "#ffffff",
-    fontWeight: "bold",
-  },
-  weekContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 40,
-  },
-  dayContainer: {
-    alignItems: "center",
-    width: 35,
-    padding: 5,
-    borderRadius: 20,
-  },
-  selectedDayContainer: {
-    backgroundColor: "#B49EFE",
-  },
-  dayLabel: {
-    color: "#B4C7DD",
-    fontSize: 12,
-    marginBottom: 2,
-  },
-  dayNumber: {
-    fontSize: 14,
-    color: "#9DB3C6",
-    fontWeight: "bold",
-  },
-  selectedDayText: {
-    color: "#ffffff",
-  },
+   logoutIcon: {
+    position: "absolute",
+  top: 40,
+  right: 30,
+},
   subtitle: {
     color: "#8896E1",
     fontWeight: "bold",
-    marginBottom: 40,
+    marginBottom: 30,
   },
   newEntryButton: {
     backgroundColor: "#82C0D1",
@@ -237,7 +140,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: "center",
-    marginBottom: 40,
+    marginBottom: 30,
     shadowColor: "#82C0D1",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
@@ -253,31 +156,19 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 20,
   },
-  historyBox: {
-    width: "100%",
-    backgroundColor: "#AFB7E5",
-    opacity: 0.5,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  },
   seeMore: {
     color: "#8896E1",
     alignSelf: "flex-end",
-    marginTop: 10,
-    marginBottom: 30,
+    marginTop: 20,
+    marginBottom: 20,
   },
   logo: {
-    marginTop: 30,
-    marginBottom:50,
+    marginTop: 10,
     width: 100,
     height: 100,
+    marginBottom:40,
     opacity: 1,
   },
 });
 
-
 export default HomeScreen;
-
-
-
