@@ -1,5 +1,5 @@
 export type Emotions = {
-  id?: number;
+  id: number;
   user_id: number;
   data: string;
   emocao: string;

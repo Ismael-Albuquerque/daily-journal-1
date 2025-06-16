@@ -45,17 +45,19 @@ const HomeScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     <View style={styles.header}>
-  <Text style={styles.greeting}>OLÁ, {user?.nome?.toUpperCase() || "USUÁRIO"}!</Text>
-  <TouchableOpacity
-    onPress={() => {
-      logout();
-      router.replace("/");
-    }}
-  >
-    <Ionicons name="log-out-outline" size={30} color="#8896E1" />
-  </TouchableOpacity>
-</View>
+      <View style={styles.header}>
+        <Text style={styles.greeting}>
+          OLÁ, {user?.nome?.toUpperCase() || "USUÁRIO"}!
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+            router.replace("/");
+          }}
+        >
+          <Ionicons name="log-out-outline" size={30} color="#8896E1" />
+        </TouchableOpacity>
+      </View>
 
       <WeekDaySelector
         dates={weekDates}
@@ -82,8 +84,10 @@ const HomeScreen = () => {
         entries.map((entry) => (
           <EmotionCard
             key={entry.id}
+            id={entry.id}
             emotion={entry.emocao}
             description={entry.descricao}
+            date={entry.data}
           />
         ))
       )}
@@ -110,13 +114,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-  width: "100%",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: 20,
-  marginTop: 40,
-},
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 40,
+  },
   greeting: {
     fontSize: 14,
     fontWeight: "bold",
@@ -124,11 +128,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 20,
   },
-   logoutIcon: {
+  logoutIcon: {
     position: "absolute",
-  top: 40,
-  right: 30,
-},
+    top: 40,
+    right: 30,
+  },
   subtitle: {
     color: "#8896E1",
     fontWeight: "bold",
@@ -166,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 100,
     height: 100,
-    marginBottom:40,
+    marginBottom: 40,
     opacity: 1,
   },
 });
