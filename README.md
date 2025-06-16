@@ -28,24 +28,24 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Recursos aplicados dos módulos anteriores
 
 - Zustand para gerenciamento de estado global:
-Criei um hook chamado useAuthStore para gerenciar o estado de autenticação do usuário de forma global, permitindo acesso às informações do usuário em diferentes partes da aplicação sem precisar passar props. Também uso Zustand com persistência local (emotionStore) para armazenar as entradas emocionais.
+  Criei um hook chamado useAuthStore para gerenciar o estado de autenticação do usuário de forma global, permitindo acesso às informações do usuário em diferentes partes da aplicação sem precisar passar props. Também uso Zustand com persistência local (emotionStore) para armazenar as entradas emocionais.
 
 - SQLite com Expo:
-Utilizei SQLite para persistência local dos dados de usuários e emoções. Criei a classe userRepository e EmotionsRepository usando o padrão repository para centralizar todas as operações de leitura e escrita no banco.
+  Utilizei SQLite para persistência local dos dados de usuários e emoções. Criei a classe userRepository e EmotionsRepository usando o padrão repository para centralizar todas as operações de leitura e escrita no banco.
 
 - Expo Router para navegação:
-Implementei o roteamento avançado com Expo Router, organizando as rotas em arquivos dentro da pasta app, e utilizando router.push() e router.replace() para navegar entre telas.
+  Implementei o roteamento avançado com Expo Router, organizando as rotas em arquivos dentro da pasta app, e utilizando router.push() e router.replace() para navegar entre telas.
 
 ### Boas práticas para a criação de componentes reutilizáveis
 
 - Isolamento de componentes reutilizáveis:
-Criei os componentes personalizados EmotionCard (para exibir entradas emocionais recentes) e WeekDaySelector (para escolher dias da semana), ambos armazenados na pasta components/. Esses componentes são reutilizados em diferentes telas.
+  Criei os componentes personalizados EmotionCard (para exibir entradas emocionais recentes) e WeekDaySelector (para escolher dias da semana), ambos armazenados na pasta components/. Esses componentes são reutilizados em diferentes telas.
 
 - Parametrização via props:
-Os componentes são parametrizáveis. Por exemplo, WeekDaySelector recebe dates, selectedDate e onSelectDate, o que permite total controle da lógica na tela pai sem acoplamento.
+  Os componentes são parametrizáveis. Por exemplo, WeekDaySelector recebe dates, selectedDate e onSelectDate, o que permite total controle da lógica na tela pai sem acoplamento.
 
 - Componentes que disparam eventos para o pai:
-Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudanças por meio de funções passadas via props (onSelectDate, onSelectEmotion).
+  Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudanças por meio de funções passadas via props (onSelectDate, onSelectEmotion).
 
 ### Observações:
 
@@ -89,7 +89,7 @@ Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudan
 
 ### Semana 5:
 
-- Tela Nova Entrada 1 + criação de componentes
+- Tela Nova Entrada + criação de componentes
   - [DONE] Criação de componentes reutilizáveis
   - [DONE] Criar tela de nova entrada;
   - [DONE] Integrar Zustand para salvar rascunho;
@@ -98,34 +98,31 @@ Componentes como WeekDaySelector e EmotionPicker notificam seus pais sobre mudan
 
 ### Semana 6:
 
-- Tela Nova Entrada 2
-  - [] Implementar editar entrada existente;
-  - [] Preencher formulario com dados da entrada;
-  - [] Atualizar registro no SQLite;
-  - [] Tratar casos de cancelamento/salvamento automático;
+- Tela Histórico
+  - [DONE] Buscar entradas do usuário logado;
+  - [DONE] Listar por ordem cronológica;
+  - [DONE] Ajustar EmotionCard para funcionar tanto no Home como no Histórico;
+  - [DONE] Criar metodo delete no EmotionRepository;
+  - [DONE] Adicionar botão editar/excluir;
+  - [DONE] Pedir confirmação ao excluir;
 
 ### Semana 7:
 
-- Tela Histórico 1
-  - [] Buscar entradas do usuário logado;
-  - [] Listar por ordem cronológica;
-  - [] Criar componente card/lista para exibir;
+- Tela Nova Entrada
+  - [] Implementar editar entrada existente utilizando a tela nova entrada;
+  - [] Criar metodo update no EmotionRepository;
+  - [] Preencher formulario com dados da entrada;
+  - [] Atualizar registro no SQLite;
 
 ### Semana 8:
 
-- Tela Histórico 2
-  - [] Adicionar botão editar e excluir;
-  - [] Testar fluxo completo: salvar -> listar -> editar -> excluir;
-  - [] Confirmação ao excluir;
-
-### Semana 9:
-
 - Ajustes finais
+  - [] Testar fluxo completo: salvar -> listar -> editar -> excluir;
   - [] Verificar e testar as funcionalidades ;
   - [] Verificar Style das telas;
   - [] Organizar a entrega do último checkpoint;
 
-### Semana 10:
+### Semana 9:
 
 - Ajustes finais
   - [] Verificar e testar as funcionalidades ;

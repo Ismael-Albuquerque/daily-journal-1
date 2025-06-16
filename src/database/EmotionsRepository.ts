@@ -28,4 +28,8 @@ export default class EmotionsRepository {
     const result = await db.getAllAsync<Emotions>("SELECT * FROM emotions;");
     return result;
   }
+
+  public async delete(id: number) {
+    await db.runAsync("DELETE FROM emotions WHERE id = ?", [id]);
+  }
 }
