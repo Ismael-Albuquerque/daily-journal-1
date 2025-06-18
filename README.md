@@ -109,10 +109,10 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 7:
 
 - Tela Nova Entrada
-  - [] Implementar editar entrada existente utilizando a tela nova entrada;
-  - [] Criar metodo update no EmotionRepository;
-  - [] Preencher formulario com dados da entrada;
-  - [] Atualizar registro no SQLite;
+  - [DONE] Implementar editar entrada existente;
+  - [DONE] Criar metodo update no EmotionRepository;
+  - [DONE] Preencher formulario com dados da entrada;
+  - [DONE] Atualizar registro no SQLite;
 
 ### Semana 8:
 
@@ -125,5 +125,4 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 9:
 
 - Ajustes finais
-  - [] Verificar e testar as funcionalidades ;
-  - [] Verificar Style das telas;
+  - [] Ajustes de código e estilização;

@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#8896E1",
     alignSelf: "flex-start",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   logoutIcon: {
     position: "absolute",
