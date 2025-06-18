@@ -32,4 +32,11 @@ export default class EmotionsRepository {
   public async delete(id: number) {
     await db.runAsync("DELETE FROM emotions WHERE id = ?", [id]);
   }
+
+  public async update(emotion: Emotions) {
+    await db.runAsync(
+      "UPDATE emotions SET data = ?, emocao = ?, descricao = ? WHERE id = ?",
+      [emotion.data, emotion.emocao, emotion.descricao, emotion.id]
+    );
+  }
 }

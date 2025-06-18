@@ -28,7 +28,10 @@ export default function Historico() {
     if (!user) return;
     const allEntries = await emotionsRepository.all();
     const userEntries = allEntries.filter((e) => e.user_id === user.id);
-    setEntries(userEntries.reverse());
+    const ordered = userEntries.sort(
+      (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+    );
+    setEntries(ordered);
   };
 
   const handleDelete = async (id: number) => {
