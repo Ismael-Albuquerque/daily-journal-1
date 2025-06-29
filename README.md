@@ -52,6 +52,7 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 - Link para o protótipo de telas: https://www.figma.com/design/6wzTaiYh1DryhVoMwTHkzG/Daily-Journal
 - Link para a modelagem do banco de dados: https://drive.google.com/file/d/1sdGYthrQZ5u8cJKbDjT9uybeSIHJOrpZ/view?usp=sharing
 - Link para o video de demonstração: https://youtube.com/shorts/Kh94_eTOd_8
+- Link para a defesa da implementação: https://youtu.be/_ASUdvrhJYI
 
 ## Planejamento de sprints:
 
@@ -108,7 +109,7 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 
 ### Semana 7:
 
-- Tela Nova Entrada
+- Tela Editar Entrada
   - [DONE] Implementar editar entrada existente;
   - [DONE] Criar metodo update no EmotionRepository;
   - [DONE] Preencher formulario com dados da entrada;
@@ -117,12 +118,12 @@ Esse repositório foi desenvolvido com as seguintes ferramentas:
 ### Semana 8:
 
 - Ajustes finais
-  - [] Testar fluxo completo: salvar -> listar -> editar -> excluir;
-  - [] Verificar e testar as funcionalidades ;
-  - [] Verificar Style das telas;
-  - [] Organizar a entrega do último checkpoint;
+  - [DONE] Testar fluxo completo: salvar -> listar -> editar -> excluir;
+  - [DONE] Verificar e testar as funcionalidades ;
+  - [DONE] criar arquivo APK e disponibilizar no GitHub;
+  - [DONE] Organizar a entrega do último checkpoint;
 
 ### Semana 9:
 
 - Ajustes finais
-  - [] Ajustes de código e estilização;
+  - [DONE] Ajustes de código e estilização;
